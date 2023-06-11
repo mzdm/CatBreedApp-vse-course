@@ -18,8 +18,22 @@ import Foundation
     
     @Injected private var apiManager: APIManaging
         
+    var allCatBreeds: [CatBreed] = []
     @Published var catBreeds: [CatBreed] = []
+    
     @Published var state: State = .initial
+    @Published var searchText: String = ""
+
+    func filterCatBreeds() {
+        if (state != .fetched) {
+            return
+        }
+        if searchText.isEmpty {
+            catBreeds = allCatBreeds
+        } else {
+            catBreeds = allCatBreeds.filter { $0.name?.lowercased().contains(searchText.lowercased()) ?? false }
+        }
+    }
     
     
     func load() async {
@@ -34,7 +48,8 @@ import Foundation
             let endpoint = CatBreedEndpoint.getCatBreeds
             let newCatBreeds: [CatBreed] = try await apiManager.request(endpoint: endpoint)
             
-            catBreeds += newCatBreeds
+            allCatBreeds = newCatBreeds
+            catBreeds = allCatBreeds
 
             state = .fetched
         } catch {

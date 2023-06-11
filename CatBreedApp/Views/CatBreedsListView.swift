@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct CatBreedsListView: View {
     
@@ -22,39 +23,47 @@ struct CatBreedsListView: View {
         NavigationView {
             ScrollView {
                 VStack() {
-                    // TODO: SearchBar ?
-                    
                     switch viewModel.state {
                     case .initial, .loading:
                         ProgressView()
                     case .fetched:
-                        LazyVGrid(
-                            columns: getGridItemLayout()
-                        ) {
-                            ForEach(viewModel.catBreeds) { breed in
-                                NavigationLink(destination: CatBreedDetailView(breed: breed)) {
-                                    CatBreedTile(breed: breed)
-                                        .padding(.bottom)
+                        if (viewModel.catBreeds.isEmpty) {
+                            LottieView(lottieFile: "empty-state")
+                                .frame(width: 200, height: 200)
+                                .padding(.top, 100)
+                        } else {
+                            LazyVGrid(
+                                columns: getGridItemLayout()
+                            ) {
+                                ForEach(viewModel.catBreeds) { breed in
+                                    NavigationLink(destination: CatBreedDetailView(breed: breed)) {
+                                        CatBreedTile(breed: breed)
+                                            .padding(.bottom)
+                                    }
                                 }
+                                .padding(.horizontal)
                             }
-                            .padding(.horizontal)
                         }
-                        case .failed:
-                            Text("Something went wrong 😕")
-                        }
+                    case .failed:
+                        Text("Something went wrong 😕")
                     }
                 }
-            }.onFirstAppear {
-                Task {
-                    await viewModel.load()
-                }
             }
-            .navigationBarTitle(Text("Cat Breeds"), displayMode: .inline)
+        }.onFirstAppear {
+            Task {
+                await viewModel.load()
+            }
         }
-    }
-    
-    struct CatBreedsListView_Previews: PreviewProvider {
-        static var previews: some View {
-            CatBreedsListView()
+        .searchable(text: $viewModel.searchText)
+        .onChange(of: viewModel.searchText) { newValue in
+            viewModel.filterCatBreeds()
         }
+        .navigationBarTitle(Text("Cat Breeds"))
     }
+}
+
+struct CatBreedsListView_Previews: PreviewProvider {
+    static var previews: some View {
+        CatBreedsListView()
+    }
+}

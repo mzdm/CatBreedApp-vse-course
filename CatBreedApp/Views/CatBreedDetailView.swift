@@ -85,7 +85,6 @@ struct CatBreedDetailView: View {
                 .offset(y: UIScreen.main.bounds.height * 0.3 - 30)
             }
         }
-        
         .edgesIgnoringSafeArea(.all)
     }
 }
