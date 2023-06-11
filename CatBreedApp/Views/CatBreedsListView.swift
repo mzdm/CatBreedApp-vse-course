@@ -14,7 +14,7 @@ struct CatBreedsListView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack {
+                VStack() {
                     // TODO: SearchBar ?
                     LazyVGrid(
                         columns: [
@@ -31,12 +31,12 @@ struct CatBreedsListView: View {
                         .padding(.horizontal)
                 }
             }
-            .navigationBarTitle(Text("Cat Breeds"), displayMode: .inline)
         }.onFirstAppear {
             Task {
                 await viewModel.load()
             }
         }
+        .navigationBarTitle(Text("Cat Breeds"), displayMode: .inline)
     }
 }
 
