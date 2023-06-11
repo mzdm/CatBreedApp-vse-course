@@ -82,8 +82,7 @@ struct CatBreedDetailView: View {
                         .fill(Color.white)
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
                 )
-                .offset(y: UIScreen.main.bounds.height * 0.3 - 30)
-            }
+            }.offset(y: UIScreen.main.bounds.height * 0.3 - 30)
         }
         .edgesIgnoringSafeArea(.all)
     }
