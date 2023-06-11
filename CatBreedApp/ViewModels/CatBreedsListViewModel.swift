@@ -18,24 +18,25 @@ import Foundation
     
     @Injected private var apiManager: APIManaging
     
-    private var currentPage: Int?
+    private var currentPage: Int = 1
         
     @Published var catBreeds: [CatBreed] = []
     @Published var state: State = .initial
     
     
     func fetchMoreIfNeeded(for catBreed: CatBreed) async {
+        Logger.log("Try fetch more if needed for id: \(String(describing: catBreed.id))", .info)
         
         guard catBreed == catBreeds.last else {
+            Logger.log("Last item, no need to fetch more", .info)
             return
         }
+    
         
-        guard let page = currentPage else {
-            return
-        }
-        
+        Logger.log("Fetching more ...", .info)
+        currentPage += 1
         state = .fetched(loadingMore: true)
-        await fetch(page: page)
+        await fetch(page: currentPage)
     }
     
     

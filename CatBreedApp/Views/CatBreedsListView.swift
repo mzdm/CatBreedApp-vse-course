@@ -16,19 +16,43 @@ struct CatBreedsListView: View {
             ScrollView {
                 VStack() {
                     // TODO: SearchBar ?
-                    LazyVGrid(
-                        columns: [
-                            GridItem(.adaptive(minimum: 180), spacing: 20.0),
-                            GridItem(.adaptive(minimum: 180), spacing: 20.0)
-                        ]) {
-                            ForEach(viewModel.catBreeds) { breed in
-                                if let breedMetadata = breed.breeds?.first {
-                                        CatBreedTile(breed: breed, breedMetadata: breedMetadata)
+                    
+                    switch viewModel.state {
+                    case .initial, .loading:
+                        ProgressView()
+                    case .fetched(let loadingMore):
+                        LazyVGrid(
+                            columns: [
+                                GridItem(.adaptive(minimum: 180), spacing: 20.0),
+                                GridItem(.adaptive(minimum: 180), spacing: 20.0)
+                            ]) {
+                                ForEach(viewModel.catBreeds) { breed in
+                                    if let breedMetadata = breed.breeds?.first {
+                                        NavigationLink(
+                                            destination: CatBreedDetailView(
+                                                breed:breed,
+                                                breedMetadata: breedMetadata)
+                                        ) {
+                                            CatBreedTile(
+                                                breed: breed,
+                                                breedMetadata: breedMetadata
+                                            )
                                             .padding(.bottom)
+                                        }
+                                        .task {
+                                            await viewModel.fetchMoreIfNeeded(for: breed)
+                                        }
+                                    }
                                 }
                             }
+                            .padding(.horizontal)
+                        
+                        if loadingMore {
+                            ProgressView()
                         }
-                        .padding(.horizontal)
+                    case .failed:
+                        Text("Something went wrong 😕")
+                    }
                 }
             }
         }.onFirstAppear {

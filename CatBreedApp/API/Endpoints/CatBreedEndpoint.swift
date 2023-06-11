@@ -22,7 +22,10 @@ enum CatBreedEndpoint: Endpoint {
         switch self {
         case .getCatBreeds(let page?):
             return [
-                "page": String(page)
+                "page": String(page),
+                "order": "ASC",
+                "has_breeds": "1",
+                "limit" : "10"
             ]
         case .getCatBreeds:
             return [
