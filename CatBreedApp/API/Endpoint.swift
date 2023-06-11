@@ -53,7 +53,11 @@ extension Endpoint {
             HTTPHeader.ContentType.json.rawValue,
             forHTTPHeaderField: HTTPHeader.HeaderField.contentType.rawValue
         )
-
+        
+        request.setValue(
+            "replace me",
+            forHTTPHeaderField: HTTPHeader.HeaderField.apiKey.rawValue
+        )
         return request
     }
 }

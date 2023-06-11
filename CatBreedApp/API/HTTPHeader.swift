@@ -10,6 +10,7 @@ import Foundation
 enum HTTPHeader {
     enum HeaderField: String {
         case contentType = "Content-Type"
+        case apiKey = "x-api-key"
     }
 
     enum ContentType: String {

@@ -21,14 +21,14 @@ class APIManager: APIManaging {
     }()
     
     func request<T>(endpoint: Endpoint) async throws -> T where T : Decodable {
-        
+        Logger.log("Trying to fetch endpoint: \(try endpoint.asURLRequest())", .info)
         let request = try endpoint.asURLRequest()
         
         let (data, response) = try await session.data(for: request)
         
         let httpResponse = response as? HTTPURLResponse
         
-        debugPrint("Finished request: \(response)")
+        Logger.log("Finished request: \(response)", .info)
                 
         guard let status =  httpResponse?.statusCode, (200...299).contains(status) else {
             throw APIError.unaceptableStatusCode

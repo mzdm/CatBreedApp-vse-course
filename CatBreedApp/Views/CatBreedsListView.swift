@@ -22,9 +22,10 @@ struct CatBreedsListView: View {
                             GridItem(.adaptive(minimum: 180), spacing: 20.0)
                         ]) {
                             ForEach(viewModel.catBreeds) { breed in
-                                // TODO: fix null
-                                CatBreedTile(breed: breed, breedMetadata: breed.breeds!.first!)
-                                    .padding(.bottom)
+                                if let breedMetadata = breed.breeds?.first {
+                                        CatBreedTile(breed: breed, breedMetadata: breedMetadata)
+                                            .padding(.bottom)
+                                }
                             }
                         }
                         .padding(.horizontal)

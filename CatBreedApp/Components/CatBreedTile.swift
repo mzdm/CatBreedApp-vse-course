@@ -18,7 +18,7 @@ struct CatBreedTile: View {
                 case .empty:
                     ProgressView().frame(height: 180)
                 case .success(let image):
-                    image.resizable().aspectRatio(contentMode: .fit).frame(height: 180, alignment: .top)
+                    image.resizable().aspectRatio(contentMode: .fit).frame(height: 120, alignment: .top)
                 case .failure(_):
                     Rectangle()
                         .frame(height: 180, alignment: .top)

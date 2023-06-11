@@ -18,8 +18,8 @@ import Foundation
     
     @Injected private var apiManager: APIManaging
     
-    private var currentPageInfo: Response<[CatBreed]>.Info?
-    
+    private var currentPage: Int?
+        
     @Published var catBreeds: [CatBreed] = []
     @Published var state: State = .initial
     
@@ -30,7 +30,7 @@ import Foundation
             return
         }
         
-        guard let page = currentPageInfo?.next else {
+        guard let page = currentPage else {
             return
         }
         
@@ -46,32 +46,24 @@ import Foundation
     
     
     func fetch(page: Int? = nil) async {
-        catBreeds += CatBreed.catBreeds
-        state = .fetched(loadingMore: false)
-        
-        
-//        do {
-//
-//            let endpoint = CharacterEndpoint.getCharacters(page: page)
-//
-//            let response: Response<[Character]> = try await apiManager.request(endpoint: endpoint)
-//
-//            currentPageInfo = response.info
-//            characters += response.results
-//
-//            state = .fetched(loadingMore: false)
-//        } catch {
-//
-//            if let error = error as? URLError, error.code == .cancelled {
-//                Logger.log("URL request was cancelled", .info)
-//
-//                state = .fetched(loadingMore: false)
-//
-//                return
-//            }
-//
-//            debugPrint(error)
-//            state = .failed
-//        }
+        do {
+
+            let endpoint = CatBreedEndpoint.getCatBreeds(page: page)
+            let newCatBreeds: [CatBreed] = try await apiManager.request(endpoint: endpoint)
+            
+            catBreeds += newCatBreeds
+
+            state = .fetched(loadingMore: false)
+        } catch {
+
+            if let error = error as? URLError, error.code == .cancelled {
+                Logger.log("URL request was cancelled", .info)
+                state = .fetched(loadingMore: false)
+                return
+            }
+
+            debugPrint(error)
+            state = .failed
+        }
     }
 }

@@ -8,6 +8,6 @@
 import Foundation
 
 enum Constants {
-    static let apiKey = "2UbYBSivv5Z5PdV2Wm61FjegVybl2TJzVsgm6L6s"
-    static let baseAPIUrl = URL(string: "https://rickandmortyapi.com/api")!
+    static let apiKey = "todo"
+    static let baseAPIUrl = URL(string: "https://api.thecatapi.com/v1/")!
 }
