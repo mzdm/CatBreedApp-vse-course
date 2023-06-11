@@ -8,8 +8,34 @@
 import SwiftUI
 
 struct CatBreedsListView: View {
+    
+    @ObservedObject var viewModel = CatBreedsListViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            ScrollView {
+                VStack {
+                    // TODO: SearchBar ?
+                    LazyVGrid(
+                        columns: [
+                            GridItem(.adaptive(minimum: 180), spacing: 20.0),
+                            GridItem(.adaptive(minimum: 180), spacing: 20.0)
+                        ]) {
+                            ForEach(viewModel.catBreeds) { breed in
+                                // TODO: fix null
+                                CatBreedTile(breed: breed, breedMetadata: breed.breeds!.first!)
+                                    .padding(.bottom)
+                            }
+                        }
+                        .padding(.horizontal)
+                }
+            }
+            .navigationBarTitle(Text("Cat Breeds"), displayMode: .inline)
+        }.onFirstAppear {
+            Task {
+                await viewModel.load()
+            }
+        }
     }
 }
 

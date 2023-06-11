@@ -24,8 +24,7 @@ struct CatBreedApp: App {
 struct ContentView: View {
     var body: some View {
         NavigationView {
-//            CatBreedsListView(viewModel: CharacterListViewModel())
-            CatBreedsListView()
+            CatBreedsListView(viewModel: CatBreedsListViewModel())
         }
         .foregroundColor(.appTextBody)
         .preferredColorScheme(.none)
