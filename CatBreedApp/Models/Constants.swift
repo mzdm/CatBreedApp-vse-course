@@ -8,6 +8,9 @@
 import Foundation
 
 enum Constants {
-    static let apiKey = "todo"
     static let baseAPIUrl = URL(string: "https://api.thecatapi.com/v1/")!
+    
+    static func getApiKey() -> String? {
+        return Bundle.main.infoDictionary?["api.thecatapi.com-API_KEY"] as? String
+    }
 }
