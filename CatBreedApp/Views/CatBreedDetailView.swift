@@ -21,6 +21,7 @@ struct CatBreedDetailView: View {
                     .font(.title)
                 Text("Life span")
                     .font(.caption)
+                    .foregroundColor(Color.appTextCaption)
             }
             .padding()
             .background(RoundedRectangle(cornerRadius: 8)
@@ -31,6 +32,7 @@ struct CatBreedDetailView: View {
                     .font(.title)
                 Text("Weight")
                     .font(.caption)
+                    .foregroundColor(Color.appTextCaption)
             }
             .padding()
             .background(RoundedRectangle(cornerRadius: 8)
@@ -96,11 +98,14 @@ struct CatBreedDetailView: View {
                             .foregroundColor(.gray)
                         Text(breedMetadata.origin ?? "Unknown origin")
                             .font(.caption)
+                            .foregroundColor(Color.appTextCaption)
                     }
                     buildCardTiles()
                     buildChipsFromTemperament()
+                        .padding(.bottom, 10)
                     Text("Description")
                         .font(.title)
+                        .padding(.bottom, 4)
                     Text(breedMetadata.description ?? "-")
                         .font(.body)
                 }

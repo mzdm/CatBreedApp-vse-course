@@ -47,6 +47,7 @@ struct CatBreedTile: View {
                         if let origin = breedMetadata.origin {
                             Text(origin)
                                 .font(.caption)
+                                .foregroundColor(Color.appTextCaption)
                         }
                     }
                     .padding([.leading, .bottom], 12)

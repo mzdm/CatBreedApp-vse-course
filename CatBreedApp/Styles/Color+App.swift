@@ -14,6 +14,7 @@ extension Color {
     static let appBackgroundItem = Color("Colors/Background/Item")
     
     static let appTextBody = Color("Colors/Text/Body")
+    static let appTextCaption = Color("Colors/Text/Caption")
     static let appTextSectionTitle = Color("Colors/Text/Section Title")
     static let appTextItemTitle = Color(uiColor: .appTextItemTitle)
     static let appTextNavigationBar = Color(uiColor: .appTextNavigationBar)
