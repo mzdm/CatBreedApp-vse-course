@@ -1,6 +1,10 @@
 ## Project info
-- Final semestral project for 4IT532: Introduction to iOS development.
-- Requirements: build an app for to fetch from [developers.thecatapi.com](), display breed images and details. Open wikipedia page for the breed if available.
+- Final semestral project for [4IT532: Introduction to iOS development](https://insis.vse.cz/auth/katalog/syllabus.pl?predmet=181554) VŠE course.
+- Requirements: build an app for to fetch from [developers.thecatapi.com](https://developers.thecatapi.com/), display breed images and details. Open wikipedia page for the breed if available.
+- Based on the Skeleton project by STRV guys: https://github.com/strvcom/ios-vse-summer-semester-2023
+- Design inspirations:
+    - https://dribbble.com/shots/14973110-Pet-Adoption-Mobile-App
+    - https://dribbble.com/shots/7337529-Pet-Sharing-App
 
 ## Setup - Env variables
 
