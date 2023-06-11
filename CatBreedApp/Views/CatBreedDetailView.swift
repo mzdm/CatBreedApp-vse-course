@@ -14,29 +14,16 @@ struct CatBreedDetailView: View {
     let breed: CatBreed
     let breedMetadata: CatBreedMetadata
     
-    func buildCardTiles() -> some View {
+    func buildCardTilesSection() -> some View {
         HStack {
-            VStack {
-                Text((breedMetadata.lifeSpan ?? "-") + " y")
-                    .font(.title)
-                Text("Life span")
-                    .font(.caption)
-                    .foregroundColor(Color.appTextCaption)
-            }
-            .padding()
-            .background(RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.gray, lineWidth: 0.5))
-            
-            VStack {
-                Text((breedMetadata.weight?.metric ?? "-") + " kg")
-                    .font(.title)
-                Text("Weight")
-                    .font(.caption)
-                    .foregroundColor(Color.appTextCaption)
-            }
-            .padding()
-            .background(RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.gray, lineWidth: 0.5))
+            DetailCardTile(
+                label: "Life span",
+                value: breedMetadata.lifeSpan ?? "-"
+            )
+            DetailCardTile(
+                label: "Weight",
+                value: (breedMetadata.weight?.metric ?? "-") + " kg"
+            )
         }
         .frame(maxWidth: .infinity)
     }
@@ -56,28 +43,9 @@ struct CatBreedDetailView: View {
     var body: some View {
         ZStack() {
             GeometryReader { GeometryProxy in
-                AsyncImage(url: URL(string: breed.url ?? "")) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image.resizable().aspectRatio(contentMode: .fit)
-                    case .failure(_):
-                        Rectangle()
-                            .foregroundColor(.gray)
-                            .overlay(
-                                Image(systemName: "pawprint")
-                                    .font(.system(size: 100))
-                                    .foregroundColor(.white)
-                            )
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
-                .frame(height: UIScreen.main.bounds.height * 0.4)
-                .clipped()
+                CatBreedImage(breed: breed)
+                    .frame(height: UIScreen.main.bounds.height * 0.4)
             }.edgesIgnoringSafeArea(.top)
-            
             ScrollView {
                 VStack {
                     HStack {
@@ -91,7 +59,7 @@ struct CatBreedDetailView: View {
                                     .foregroundColor(.blue)
                             }
                         }
-                       
+                        
                     }
                     HStack {
                         Image(systemName: "globe")
@@ -100,7 +68,7 @@ struct CatBreedDetailView: View {
                             .font(.caption)
                             .foregroundColor(Color.appTextCaption)
                     }
-                    buildCardTiles()
+                    buildCardTilesSection()
                     buildChipsFromTemperament()
                         .padding(.bottom, 10)
                     Text("Description")

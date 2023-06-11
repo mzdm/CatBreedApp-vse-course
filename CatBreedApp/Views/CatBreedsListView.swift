@@ -11,6 +11,13 @@ struct CatBreedsListView: View {
     
     @ObservedObject var viewModel = CatBreedsListViewModel()
     
+    func getGridItemLayout() -> [GridItem] {
+        return [
+            GridItem(.adaptive(minimum: 180), spacing: 20.0),
+            GridItem(.adaptive(minimum: 180), spacing: 20.0)
+        ]
+    }
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -22,30 +29,28 @@ struct CatBreedsListView: View {
                         ProgressView()
                     case .fetched(let loadingMore):
                         LazyVGrid(
-                            columns: [
-                                GridItem(.adaptive(minimum: 180), spacing: 20.0),
-                                GridItem(.adaptive(minimum: 180), spacing: 20.0)
-                            ]) {
-                                ForEach(viewModel.catBreeds) { breed in
-                                    if let breedMetadata = breed.breeds?.first {
-                                        NavigationLink(
-                                            destination: CatBreedDetailView(
-                                                breed:breed,
-                                                breedMetadata: breedMetadata)
-                                        ) {
-                                            CatBreedTile(
-                                                breed: breed,
-                                                breedMetadata: breedMetadata
-                                            )
-                                            .padding(.bottom)
-                                        }
-                                        .task {
-                                            await viewModel.fetchMoreIfNeeded(for: breed)
-                                        }
+                            columns: getGridItemLayout()
+                        ) {
+                            ForEach(viewModel.catBreeds) { breed in
+                                if let breedMetadata = breed.breeds?.first {
+                                    NavigationLink(
+                                        destination: CatBreedDetailView(
+                                            breed:breed,
+                                            breedMetadata: breedMetadata)
+                                    ) {
+                                        CatBreedTile(
+                                            breed: breed,
+                                            breedMetadata: breedMetadata
+                                        )
+                                        .padding(.bottom)
+                                    }
+                                    .task {
+                                        await viewModel.fetchMoreIfNeeded(for: breed)
                                     }
                                 }
                             }
-                            .padding(.horizontal)
+                        }
+                        .padding(.horizontal)
                         
                         if loadingMore {
                             ProgressView()

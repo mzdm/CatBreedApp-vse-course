@@ -13,27 +13,7 @@ struct CatBreedTile: View {
     
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: breed.url ?? "")) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView().frame(height: 180)
-                case .success(let image):
-                    image.resizable().aspectRatio(contentMode: .fit).frame(height: 120, alignment: .top)
-                case .failure(_):
-                    Rectangle()
-                        .frame(height: 180, alignment: .top)
-                        .foregroundColor(.gray)
-                        .overlay(
-                            Image(systemName: "pawprint")
-                                .font(.system(size: 100))
-                                .foregroundColor(.white)
-                        )
-                @unknown default:
-                    EmptyView()
-                }
-            }
-            .clipped()
-            
+            CatBreedImage(breed: breed, height: 120)
             Spacer()
             HStack {
                 VStack(alignment: .leading) {
