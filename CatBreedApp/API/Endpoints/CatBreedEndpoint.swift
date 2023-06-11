@@ -9,30 +9,20 @@ import Foundation
 
 enum CatBreedEndpoint: Endpoint {
     
-    case getCatBreeds(page: Int?)
+    case getCatBreeds
     
     var path: String {
         switch self {
         case .getCatBreeds:
-            return "images/search"
+            return "breeds"
         }
     }
     
     var urlParameters: [String : String] {
         switch self {
-        case .getCatBreeds(let page?):
-            return [
-                "page": String(page),
-                "order": "ASC",
-                "has_breeds": "1",
-                "limit" : "10"
-            ]
         case .getCatBreeds:
             return [
-                "page": "1",
-                "order": "ASC",
-                "has_breeds": "1",
-                "limit" : "10"
+                :
             ]
         }
         

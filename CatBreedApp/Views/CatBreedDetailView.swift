@@ -12,24 +12,23 @@ import WrappingHStack
 
 struct CatBreedDetailView: View {
     let breed: CatBreed
-    let breedMetadata: CatBreedMetadata
     
     func buildCardTilesSection() -> some View {
         HStack {
             DetailCardTile(
                 label: "Life span",
-                value: breedMetadata.lifeSpan ?? "-"
+                value: breed.lifeSpan ?? "-"
             )
             DetailCardTile(
                 label: "Weight",
-                value: (breedMetadata.weight?.metric ?? "-") + " kg"
+                value: (breed.weight?.metric ?? "-") + " kg"
             )
         }
         .frame(maxWidth: .infinity)
     }
     
     func buildChipsFromTemperament() -> some View {
-        let listOfTemperaments = breedMetadata.temperament?.split(separator: ",") ?? []
+        let listOfTemperaments = breed.temperament?.split(separator: ",") ?? []
         return WrappingHStack(alignment: .center) {
             ForEach(listOfTemperaments, id: \.self) { temperament in
                 Text(temperament.trimmingCharacters(in: .whitespacesAndNewlines))
@@ -50,10 +49,10 @@ struct CatBreedDetailView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        Text(breedMetadata.name ?? "-")
+                        Text(breed.name ?? "-")
                             .font(.title)
                         Spacer()
-                        if let wikipediaUrl = breedMetadata.wikipediaURL {
+                        if let wikipediaUrl = breed.wikipediaURL {
                             NavigationLink(destination: InAppWebView(url: URL(string: wikipediaUrl)!)) {
                                 Image(systemName: "link")
                                     .foregroundColor(.blue)
@@ -64,7 +63,7 @@ struct CatBreedDetailView: View {
                     HStack {
                         Image(systemName: "globe")
                             .foregroundColor(.gray)
-                        Text(breedMetadata.origin ?? "Unknown origin")
+                        Text(breed.origin ?? "Unknown origin")
                             .font(.caption)
                             .foregroundColor(Color.appTextCaption)
                     }
@@ -74,7 +73,7 @@ struct CatBreedDetailView: View {
                     Text("Description")
                         .font(.title)
                         .padding(.bottom, 4)
-                    Text(breedMetadata.description ?? "-")
+                    Text(breed.description ?? "-")
                         .font(.body)
                 }
                 .padding()
@@ -94,6 +93,6 @@ struct CatBreedDetailView: View {
 
 struct CatBreedDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        CatBreedDetailView(breed: .mock, breedMetadata: .mock(i: 0))
+        CatBreedDetailView(breed: .catBreedsMock.first!)
     }
 }

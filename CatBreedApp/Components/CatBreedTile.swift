@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CatBreedTile: View {
     let breed: CatBreed
-    let breedMetadata: CatBreedMetadata
     
     var body: some View {
         VStack {
@@ -17,11 +16,11 @@ struct CatBreedTile: View {
             Spacer()
             HStack {
                 VStack(alignment: .leading) {
-                    Text(breedMetadata.name ?? "?")
+                    Text(breed.name ?? "?")
                         .font(.headline)
                         .lineLimit(1)
                         .truncationMode(.tail)
-                    if let origin = breedMetadata.origin {
+                    if let origin = breed.origin {
                         Text(origin)
                             .font(.caption)
                             .foregroundColor(Color.appTextCaption)
@@ -39,6 +38,6 @@ struct CatBreedTile: View {
 
 struct CatBreedTile_Previews: PreviewProvider {
     static var previews: some View {
-        CatBreedTile(breed: .mock, breedMetadata: .mock(i: 0))
+        CatBreedTile(breed: .catBreedsMock.first!)
     }
 }

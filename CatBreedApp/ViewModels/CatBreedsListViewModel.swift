@@ -12,32 +12,14 @@ import Foundation
     enum State {
         case initial
         case loading
-        case fetched(loadingMore: Bool)
+        case fetched
         case failed
     }
     
     @Injected private var apiManager: APIManaging
-    
-    private var currentPage: Int = 1
         
     @Published var catBreeds: [CatBreed] = []
     @Published var state: State = .initial
-    
-    
-    func fetchMoreIfNeeded(for catBreed: CatBreed) async {
-        Logger.log("Try fetch more if needed for id: \(String(describing: catBreed.id))", .info)
-        
-        guard catBreed == catBreeds.last else {
-            Logger.log("Last item, no need to fetch more", .info)
-            return
-        }
-    
-        
-        Logger.log("Fetching more ...", .info)
-        currentPage += 1
-        state = .fetched(loadingMore: true)
-        await fetch(page: currentPage)
-    }
     
     
     func load() async {
@@ -46,20 +28,20 @@ import Foundation
     }
     
     
-    func fetch(page: Int? = nil) async {
+    func fetch() async {
         do {
 
-            let endpoint = CatBreedEndpoint.getCatBreeds(page: page)
+            let endpoint = CatBreedEndpoint.getCatBreeds
             let newCatBreeds: [CatBreed] = try await apiManager.request(endpoint: endpoint)
             
             catBreeds += newCatBreeds
 
-            state = .fetched(loadingMore: false)
+            state = .fetched
         } catch {
 
             if let error = error as? URLError, error.code == .cancelled {
                 Logger.log("URL request was cancelled", .info)
-                state = .fetched(loadingMore: false)
+                state = .fetched
                 return
             }
 

@@ -27,50 +27,34 @@ struct CatBreedsListView: View {
                     switch viewModel.state {
                     case .initial, .loading:
                         ProgressView()
-                    case .fetched(let loadingMore):
+                    case .fetched:
                         LazyVGrid(
                             columns: getGridItemLayout()
                         ) {
                             ForEach(viewModel.catBreeds) { breed in
-                                if let breedMetadata = breed.breeds?.first {
-                                    NavigationLink(
-                                        destination: CatBreedDetailView(
-                                            breed:breed,
-                                            breedMetadata: breedMetadata)
-                                    ) {
-                                        CatBreedTile(
-                                            breed: breed,
-                                            breedMetadata: breedMetadata
-                                        )
+                                NavigationLink(destination: CatBreedDetailView(breed: breed)) {
+                                    CatBreedTile(breed: breed)
                                         .padding(.bottom)
-                                    }
-                                    .task {
-                                        await viewModel.fetchMoreIfNeeded(for: breed)
-                                    }
                                 }
                             }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
-                        
-                        if loadingMore {
-                            ProgressView()
+                        case .failed:
+                            Text("Something went wrong 😕")
                         }
-                    case .failed:
-                        Text("Something went wrong 😕")
                     }
                 }
+            }.onFirstAppear {
+                Task {
+                    await viewModel.load()
+                }
             }
-        }.onFirstAppear {
-            Task {
-                await viewModel.load()
-            }
+            .navigationBarTitle(Text("Cat Breeds"), displayMode: .inline)
         }
-        .navigationBarTitle(Text("Cat Breeds"), displayMode: .inline)
     }
-}
-
-struct CatBreedsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        CatBreedsListView()
+    
+    struct CatBreedsListView_Previews: PreviewProvider {
+        static var previews: some View {
+            CatBreedsListView()
+        }
     }
-}

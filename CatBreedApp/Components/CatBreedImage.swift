@@ -12,7 +12,7 @@ struct CatBreedImage: View {
     var height: CGFloat? = nil
     
     var body: some View {
-        AsyncImage(url: URL(string: breed.url ?? "")) { phase in
+        AsyncImage(url: URL(string: breed.image?.url ?? "")) { phase in
             switch phase {
             case .empty:
                 ProgressView().frame(height: height)
