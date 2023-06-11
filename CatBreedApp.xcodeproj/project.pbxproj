@@ -14,6 +14,8 @@
 		DA1252082A35E951008E587A /* CatBreedTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1252072A35E951008E587A /* CatBreedTile.swift */; };
 		DA12520B2A35F40E008E587A /* CatBreedsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA12520A2A35F40E008E587A /* CatBreedsListViewModel.swift */; };
 		DA12520D2A35FDC2008E587A /* CatBreedEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA12520C2A35FDC2008E587A /* CatBreedEndpoint.swift */; };
+		DA12520F2A360A36008E587A /* CatBreedDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA12520E2A360A36008E587A /* CatBreedDetailView.swift */; };
+		DA1252122A36142A008E587A /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = DA1252112A36142A008E587A /* WrappingHStack */; };
 		DA2900B02A2E7AEB00B663CE /* CatBreedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2900AF2A2E7AEB00B663CE /* CatBreedApp.swift */; };
 		DA2900B72A2E7AED00B663CE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA2900B62A2E7AED00B663CE /* Preview Assets.xcassets */; };
 		DA2900C62A2E7BE600B663CE /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2900BE2A2E7BE600B663CE /* APIError.swift */; };
@@ -47,6 +49,7 @@
 		DA1252072A35E951008E587A /* CatBreedTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatBreedTile.swift; sourceTree = "<group>"; };
 		DA12520A2A35F40E008E587A /* CatBreedsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatBreedsListViewModel.swift; sourceTree = "<group>"; };
 		DA12520C2A35FDC2008E587A /* CatBreedEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatBreedEndpoint.swift; sourceTree = "<group>"; };
+		DA12520E2A360A36008E587A /* CatBreedDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatBreedDetailView.swift; sourceTree = "<group>"; };
 		DA2900AC2A2E7AEB00B663CE /* CatBreedApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatBreedApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA2900AF2A2E7AEB00B663CE /* CatBreedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatBreedApp.swift; sourceTree = "<group>"; };
 		DA2900B62A2E7AED00B663CE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -79,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA1252122A36142A008E587A /* WrappingHStack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +259,7 @@
 			children = (
 				DA29012C2A2E7C5400B663CE /* BackgroundGradientView.swift */,
 				DA1251FC2A35E5E2008E587A /* CatBreedsListView.swift */,
+				DA12520E2A360A36008E587A /* CatBreedDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -275,6 +280,9 @@
 			dependencies = (
 			);
 			name = CatBreedApp;
+			packageProductDependencies = (
+				DA1252112A36142A008E587A /* WrappingHStack */,
+			);
 			productName = CatBreedApp;
 			productReference = DA2900AC2A2E7AEB00B663CE /* CatBreedApp.app */;
 			productType = "com.apple.product-type.application";
@@ -303,6 +311,9 @@
 				Base,
 			);
 			mainGroup = DA2900A32A2E7AEB00B663CE;
+			packageReferences = (
+				DA1252102A36142A008E587A /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+			);
 			productRefGroup = DA2900AD2A2E7AEB00B663CE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -352,6 +363,7 @@
 				DA1251F92A35E542008E587A /* CatBreed.swift in Sources */,
 				DA2900B02A2E7AEB00B663CE /* CatBreedApp.swift in Sources */,
 				DA2900CA2A2E7BE600B663CE /* HTTPHeader.swift in Sources */,
+				DA12520F2A360A36008E587A /* CatBreedDetailView.swift in Sources */,
 				DA2901282A2E7C4F00B663CE /* OnFirstAppearViewModifier.swift in Sources */,
 				DA2900C62A2E7BE600B663CE /* APIError.swift in Sources */,
 				DA2900E52A2E7C3200B663CE /* PaginatedResponse.swift in Sources */,
@@ -559,6 +571,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DA1252102A36142A008E587A /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ksemianov/WrappingHStack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DA1252112A36142A008E587A /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA1252102A36142A008E587A /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DA2900A42A2E7AEB00B663CE /* Project object */;
 }
