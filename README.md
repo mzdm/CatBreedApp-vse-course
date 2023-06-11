@@ -1,4 +1,6 @@
-todo: project semestral info
+## Project info
+- Final semestral project for 4IT532: Introduction to iOS development.
+- Requirements: build an app for to fetch from [developers.thecatapi.com](), display breed images and details. Open wikipedia page for the breed if available.
 
 ## Setup - Env variables
 
@@ -13,3 +15,6 @@ This project uses `.xcconfig` files to manage environment variables so API keys 
    ```
 
    Replace `YOUR_API_KEY` with your actual API key.
+
+## Issues encountered
+- In detail view there is NavBarTitle from the previous view, could not find a way to remove it
