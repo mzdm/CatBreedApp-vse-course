@@ -78,8 +78,19 @@ struct CatBreedDetailView: View {
             
             ScrollView {
                 VStack {
-                    Text(breedMetadata.name ?? "-")
-                        .font(.title)
+                    HStack {
+                        Spacer()
+                        Text(breedMetadata.name ?? "-")
+                            .font(.title)
+                        Spacer()
+                        if let wikipediaUrl = breedMetadata.wikipediaURL {
+                            NavigationLink(destination: InAppWebView(url: URL(string: wikipediaUrl)!)) {
+                                Image(systemName: "link")
+                                    .foregroundColor(.blue)
+                            }
+                        }
+                       
+                    }
                     HStack {
                         Image(systemName: "globe")
                             .foregroundColor(.gray)
